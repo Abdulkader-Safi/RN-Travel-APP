@@ -1,9 +1,19 @@
 import Colors from "@/constant/Colors";
 import { Ionicons } from "@expo/vector-icons";
 import { Stack } from "expo-router";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { useHeaderHeight } from "@react-navigation/elements";
 
 const Page = () => {
+  const headerHeigh = useHeaderHeight();
+
   return (
     <>
       <Stack.Screen
@@ -52,8 +62,20 @@ const Page = () => {
         }}
       />
 
-      <View style={styles.container}>
-        <Text>Index</Text>
+      <View style={[styles.container, { paddingTop: headerHeigh }]}>
+        <Text style={styles.headingTxt}>Explore The Beautiful World!</Text>
+
+        <View style={styles.searchSectionWrapper}>
+          <View style={styles.searchBar}>
+            <Ionicons name="search" size={18} color={Colors.black} />
+
+            <TextInput placeholder="Search..." />
+          </View>
+
+          <TouchableOpacity onPress={() => {}} style={styles.filterBtn}>
+            <Ionicons name="options" size={28} color={Colors.white} />
+          </TouchableOpacity>
+        </View>
       </View>
     </>
   );
@@ -64,7 +86,31 @@ export default Page;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    paddingHorizontal: 20,
+    backgroundColor: Colors.bgColor,
+  },
+  headingTxt: {
+    fontSize: 28,
+    fontWeight: "800",
+    color: Colors.black,
+    marginTop: 10,
+  },
+  searchSectionWrapper: {
+    flexDirection: "row",
+    marginVertical: 20,
+    gap: 20,
+  },
+  searchBar: {
+    flex: 1,
+    flexDirection: "row",
+    backgroundColor: Colors.white,
+    padding: 16,
+    borderRadius: 10,
+    gap: 5,
+  },
+  filterBtn: {
+    backgroundColor: Colors.primaryColor,
+    padding: 12,
+    borderRadius: 10,
   },
 });
