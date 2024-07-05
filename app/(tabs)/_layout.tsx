@@ -1,11 +1,23 @@
+import Colors from "@/constant/Colors";
 import { FontAwesome, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import React from "react";
-// You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
+import { View } from "react-native";
 
 export default function TabLayout() {
   return (
-    <Tabs>
+    <Tabs
+      screenOptions={{
+        tabBarStyle: {
+          backgroundColor: Colors.bgColor,
+          borderTopWidth: 0,
+          padding: 0,
+        },
+        tabBarShowLabel: false,
+        tabBarActiveTintColor: Colors.black,
+        tabBarInactiveTintColor: "#999",
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
@@ -28,7 +40,19 @@ export default function TabLayout() {
         name="search"
         options={{
           tabBarIcon: ({ color }) => (
-            <Ionicons name="search" size={28} color={color} />
+            <View
+              style={{
+                backgroundColor: Colors.primaryColor,
+                justifyContent: "center",
+                alignItems: "center",
+                paddingHorizontal: 16,
+                paddingVertical: 12,
+                borderRadius: 10,
+                height: 50,
+              }}
+            >
+              <Ionicons name="search-outline" size={28} color={Colors.white} />
+            </View>
           ),
         }}
       />
