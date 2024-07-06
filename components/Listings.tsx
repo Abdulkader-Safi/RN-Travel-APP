@@ -1,6 +1,8 @@
 import Colors from "@/constant/Colors";
 import { DestinationListingType } from "@/utils/DestinationListingTypes";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
+import { Link } from "expo-router";
+import { useEffect, useState } from "react";
 import {
   FlatList,
   Image,
@@ -13,61 +15,88 @@ import {
 
 type IProp = {
   listings: DestinationListingType[];
+  category: string;
 };
 
-const Listings = ({ listings }: IProp) => {
+const Listings = ({ listings, category }: IProp) => {
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 200);
+  }, [category]);
+
   const renderItems: ListRenderItem<DestinationListingType> = ({ item }) => {
     return (
-      <TouchableOpacity>
-        <View style={styles.item}>
-          <Image
-            source={{
-              uri: item.image,
-            }}
-            style={styles.image}
-          />
+      <Link href={`/listing/${item.id}`} asChild>
+        <TouchableOpacity>
+          <View style={styles.item}>
+            <Image
+              source={{
+                uri: item.image,
+              }}
+              style={styles.image}
+            />
 
-          <View style={styles.bookmark}>
-            <Ionicons name="bookmark-outline" size={20} color={Colors.white} />
-          </View>
+            <View style={styles.bookmark}>
+              <Ionicons
+                name="bookmark-outline"
+                size={20}
+                color={Colors.white}
+              />
+            </View>
 
-          <Text numberOfLines={1} style={styles.itemTxt} ellipsizeMode="tail">
-            {item.name}
-          </Text>
+            <Text numberOfLines={1} style={styles.itemTxt} ellipsizeMode="tail">
+              {item.name}
+            </Text>
 
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
             <View
               style={{
                 flexDirection: "row",
+                justifyContent: "space-between",
                 alignItems: "center",
-                gap: 5,
               }}
             >
-              <FontAwesome5
-                name="map-marker-alt"
-                size={18}
-                color={Colors.primaryColor}
-              />
-              <Text style={styles.itemLocationTxt}>{item.location}</Text>
-            </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: 5,
+                }}
+              >
+                <FontAwesome5
+                  name="map-marker-alt"
+                  size={18}
+                  color={Colors.primaryColor}
+                />
+                <Text style={styles.itemLocationTxt}>{item.location}</Text>
+              </View>
 
-            <Text style={styles.itemPriceText}>${item.price}</Text>
+              <Text style={styles.itemPriceText}>${item.price}</Text>
+            </View>
           </View>
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </Link>
     );
   };
 
   return (
     <View>
       <FlatList
-        data={listings}
+        data={
+          loading
+            ? []
+            : listings.filter((l) => {
+                if (category === "All") {
+                  return l;
+                }
+
+                return l.category === category;
+              })
+        }
         renderItem={renderItems}
         horizontal
         showsHorizontalScrollIndicator={false}

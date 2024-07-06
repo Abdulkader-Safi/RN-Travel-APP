@@ -1,4 +1,3 @@
-import Colors from "@/constant/Colors";
 import { Ionicons } from "@expo/vector-icons";
 import { Stack } from "expo-router";
 import {
@@ -10,9 +9,11 @@ import {
   View,
 } from "react-native";
 import { useHeaderHeight } from "@react-navigation/elements";
-import CategoryButton from "@/components/CategoryButton";
 import { useState } from "react";
+
+import Colors from "@/constant/Colors";
 import Listings from "@/components/Listings";
+import CategoryButton from "@/components/CategoryButton";
 import listingData from "@/data/destinations.json";
 
 const Page = () => {
@@ -88,7 +89,7 @@ const Page = () => {
 
         <CategoryButton onCategoryChanged={onChanged} />
 
-        <Listings listings={listingData} />
+        <Listings listings={listingData} category={category} />
       </View>
     </>
   );
