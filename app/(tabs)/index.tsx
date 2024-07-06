@@ -11,9 +11,17 @@ import {
 } from "react-native";
 import { useHeaderHeight } from "@react-navigation/elements";
 import CategoryButton from "@/components/CategoryButton";
+import { useState } from "react";
+import Listings from "@/components/Listings";
+import listingData from "@/data/destinations.json";
 
 const Page = () => {
   const headerHeigh = useHeaderHeight();
+  const [category, setCategory] = useState("All");
+
+  const onChanged = (category: string) => {
+    setCategory(category);
+  };
 
   return (
     <>
@@ -70,7 +78,7 @@ const Page = () => {
           <View style={styles.searchBar}>
             <Ionicons name="search" size={18} color={Colors.black} />
 
-            <TextInput placeholder="Search..." />
+            <TextInput placeholder="Search..." style={{ width: "100%" }} />
           </View>
 
           <TouchableOpacity onPress={() => {}} style={styles.filterBtn}>
@@ -78,7 +86,9 @@ const Page = () => {
           </TouchableOpacity>
         </View>
 
-        <CategoryButton />
+        <CategoryButton onCategoryChanged={onChanged} />
+
+        <Listings listings={listingData} />
       </View>
     </>
   );

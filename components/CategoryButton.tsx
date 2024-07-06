@@ -10,7 +10,11 @@ import {
   View,
 } from "react-native";
 
-const CategoryButton = () => {
+type IProp = {
+  onCategoryChanged: (category: string) => void;
+};
+
+const CategoryButton = ({ onCategoryChanged }: IProp) => {
   const scrollRef = useRef<ScrollView>(null);
   const itemRef = useRef<TouchableOpacity[] | null[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -23,6 +27,8 @@ const CategoryButton = () => {
     selected?.measure((x) => {
       scrollRef.current?.scrollTo({ x: x, y: 0, animated: true });
     });
+
+    onCategoryChanged(destinationCategories[index].title);
   };
 
   return (
