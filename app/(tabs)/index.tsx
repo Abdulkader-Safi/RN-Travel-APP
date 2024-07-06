@@ -10,6 +10,7 @@ import {
   View,
 } from "react-native";
 import { useHeaderHeight } from "@react-navigation/elements";
+import CategoryButton from "@/components/CategoryButton";
 
 const Page = () => {
   const headerHeigh = useHeaderHeight();
@@ -76,6 +77,8 @@ const Page = () => {
             <Ionicons name="options" size={28} color={Colors.white} />
           </TouchableOpacity>
         </View>
+
+        <CategoryButton />
       </View>
     </>
   );
@@ -107,10 +110,13 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 10,
     gap: 5,
+    alignItems: "center",
   },
   filterBtn: {
     backgroundColor: Colors.primaryColor,
     padding: 12,
     borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

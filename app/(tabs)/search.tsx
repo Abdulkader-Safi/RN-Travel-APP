@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 const Page = () => {
   return (
     <View style={styles.container}>
-      <Text>Category</Text>
+      <Text>Search</Text>
     </View>
   );
 };

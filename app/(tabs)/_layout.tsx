@@ -39,7 +39,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="search"
         options={{
-          tabBarIcon: ({ color }) => (
+          tabBarIcon: () => (
             <View
               style={{
                 backgroundColor: Colors.primaryColor,
