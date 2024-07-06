@@ -1,5 +1,5 @@
 import Colors from "@/constant/Colors";
-import { DestinationListingType } from "@/utils/DestinationListingTypes";
+import { ListingType } from "@/utils/ListingTypes";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
 import { useEffect, useState } from "react";
@@ -14,22 +14,12 @@ import {
 } from "react-native";
 
 type IProp = {
-  listings: DestinationListingType[];
+  listings: ListingType[];
   category: string;
 };
 
 const Listings = ({ listings, category }: IProp) => {
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-
-    setTimeout(() => {
-      setLoading(false);
-    }, 200);
-  }, [category]);
-
-  const renderItems: ListRenderItem<DestinationListingType> = ({ item }) => {
+  const renderItems: ListRenderItem<ListingType> = ({ item }) => {
     return (
       <Link href={`/listing/${item.id}`} asChild>
         <TouchableOpacity>
@@ -86,17 +76,13 @@ const Listings = ({ listings, category }: IProp) => {
   return (
     <View>
       <FlatList
-        data={
-          loading
-            ? []
-            : listings.filter((l) => {
-                if (category === "All") {
-                  return l;
-                }
+        data={listings.filter((l) => {
+          if (category === "All") {
+            return l;
+          }
 
-                return l.category === category;
-              })
-        }
+          return l.category === category;
+        })}
         renderItem={renderItems}
         horizontal
         showsHorizontalScrollIndicator={false}

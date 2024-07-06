@@ -1,4 +1,4 @@
-export type DestinationListingType = {
+export type ListingType = {
   id: string;
   name: string;
   image: string;
